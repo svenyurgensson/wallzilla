@@ -1,10 +1,32 @@
 # Wallzilla
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/wallzilla`. To experiment with that code, run `bin/console` for an interactive prompt.
+**Wallzilla** very simple ruby gem with CLI for generating mosaic images from Flickr.
 
-TODO: Delete this and the text above, and describe your gem
+It provides:
+
+* accepts a list of search keywords as arguments
+* queries the Flickr API for the top-rated (term: interestingness) image for each keyword
+* downloads the results
+* assembles a collage grid from ten images and
+* writes the result to a user-supplied filename
+
+## Example
+
+    $ wz --key ~~HIDDEN~~ winter boy rocket racoon fear mars
+
+
 
 ## Installation
+
+### Prerequisites:
+
+This gem assumes that you have `imagemagick` installed in your system
+
+### CLI installation:
+
+    $ gem install wallzilla
+
+### Programm interface
 
 Add this line to your application's Gemfile:
 
@@ -16,13 +38,9 @@ And then execute:
 
     $ bundle
 
-Or install it yourself as:
+## CLI Usage
 
-    $ gem install wallzilla
-
-## Usage
-
-TODO: Write usage instructions here
+## Library usage
 
 ## Development
 
