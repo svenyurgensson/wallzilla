@@ -8,13 +8,13 @@ It provides:
 * queries the Flickr API for the top-rated (term: interestingness) image for each keyword
 * downloads the results
 * assembles a collage grid from ten images and
-* writes the result to a user-supplied filename
+* writes the result to a user-supplied filenameds
 
 ## Example
 
     $ wz --key ~~HIDDEN~~ winter boy rocket racoon fear mars
 
-
+<img src="https://raw.github.com/svenyurgensson/wallzilla/master/images/output.jpg" alt="Example resulting mosaic"/>
 
 ## Installation
 
