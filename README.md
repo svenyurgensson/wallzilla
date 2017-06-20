@@ -8,7 +8,7 @@ It provides:
 * queries the Flickr API for the top-rated (term: interestingness) image for each keyword
 * downloads the results
 * assembles a collage grid from ten images and
-* writes the result to a user-supplied filenameds
+* writes the result to a user-supplied filename
 
 If given less than ten keywords, or if any keyword fails to
 result in a match, gem retrieve random words from a dictionary
@@ -45,6 +45,19 @@ And then execute:
 
     $ bundle
 
+#### Library usage
+
+```ruby
+Wallzilla::Runner.build(kw: %w(winter boy rocket racoon fear mars),
+                        result: "output.jpg", 
+                        key: YOUR_FLICKR_KEY, 
+                        words: nil,   # optional
+                        tiles: "4x3", # optional
+                        bg: "black")  # optional
+```
+As result you have file `output.jpg` in working directory.
+
+
 ## CLI Usage
 
 ```shell
@@ -56,6 +69,12 @@ USAGE: wz [options] kw1 kw2 kw3 ... kw10
     -b, --background color           Fill background color (black)
     -v, --version                    Show version
 ```
+
+### Arguments
+
+`kw1` .. `kw10` 
+Keywords for searching top photos on Flickr. May be omitted, remain keywords to have exactly 10 images will be taken randomly from wordlist.
+
 ### Options:
 
 `-o, --output FILE` 
@@ -76,17 +95,6 @@ Just plain text file filled with words you like, line by line. Default words sou
 `-t, --tile [5x2 | 4x3]`
 You could choose how images will be placed in resulting mosaic `columns X rows`, default is `4x3`
 
-## Library usage
-
-```ruby
-Wallzilla::Runner.build(kw: %w(winter boy rocket racoon fear mars),
-                        result: "output.jpg", 
-                        key: YOUR_FLICKR_KEY, 
-                        words: nil,   # optional
-                        tiles: "4x3", # optional
-                        bg: "black")  # optional
-```
-As result you have file `output.jpg` in working directory.
 
 ## Development
 
