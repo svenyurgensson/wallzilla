@@ -10,9 +10,15 @@ It provides:
 * assembles a collage grid from ten images and
 * writes the result to a user-supplied filenameds
 
+If given less than ten keywords, or if any keyword fails to
+result in a match, gem retrieve random words from a dictionary
+source such as `/usr/share/dict/words` or provided one
+
+I like the idea to keep library as small as I can, so it has no external dependancies (except `imagemagick`)
+
 ## Example
 
-    $ wz --key ~~HIDDEN~~ winter boy rocket racoon fear mars
+    $ wz --key YOUR_FLICKR_KEY winter boy rocket racoon fear mars
 
 <img src="https://raw.github.com/svenyurgensson/wallzilla/master/images/output.jpg" alt="Example resulting mosaic"/>
 
@@ -33,14 +39,25 @@ Add this line to your application's Gemfile:
 ```ruby
 gem 'wallzilla'
 ```
-
 And then execute:
 
     $ bundle
 
 ## CLI Usage
 
+
+
 ## Library usage
+
+```ruby
+Wallzilla::Runner.build(kw: %w(winter boy rocket racoon fear mars),
+                        result: "output.jpg", 
+                        key: YOUR_FLICKR_KEY, 
+                        words: nil,   # optional
+                        tiles: "4x3", # optional
+                        bg: "black")  # optional
+```
+As result you have file `output.jpg` in working directory.
 
 ## Development
 
