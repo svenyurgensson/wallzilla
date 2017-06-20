@@ -6,7 +6,10 @@ module Wallzilla
     KW_LEN_RANGE        = 4...10
     DEFAULT_FILENAME    = "output.jpg"
     NO_WORDS_FILE_FOUND = "Sorry, but no one words list file found!"
+    COPYRIGHT           = "© 2017 Yury Batenko. Done with fun"
 
+    # Entry point for external calling Wallzilla image generation
+    #
     def build(kw:, result:, key:, words: nil, tiles: "4x3", bg: "black")
       @_output_file = result
       @_key         = key
@@ -17,23 +20,33 @@ module Wallzilla
       run!(kw)
     end
 
-    def run!(kw)
-      keywords = normalize(kw)
+    def run!(kw, progressbar: nil)
+      @progressbar = progressbar
+      maybe_show_progress(:started)
+
+      @keywords = normalize(kw)
 
       photos = process_photos(keywords)
 
       Wallzilla::Montage.process!(photos, output_file, fill)
+
+      maybe_show_progress(:finished)
+    rescue => e
+      maybe_show_progress(:interrupted)
+      raise e
     ensure
       clean(photos) if photos
     end
 
     def process_photos(kw)
-      kw.map do |word|
-        loop do
+      kw.map.with_index(1) do |word, idx|
+        fetched_photo = loop do
           url = fetch(word)
           break url if url
           word = random_word
         end
+        maybe_show_progress(:progress, idx)
+        fetched_photo
       end
     end
 
@@ -43,6 +56,10 @@ module Wallzilla
 
     def fetch(kw)
       Wallzilla::Fetcher.fetch(kw)
+    end
+
+    def keywords
+      @keywords
     end
 
     def fill
@@ -90,6 +107,11 @@ module Wallzilla
 
     def random_word
       Wallzilla::Words.random_word(KW_LEN_RANGE)
+    end
+
+    def maybe_show_progress(msg, value = nil)
+      return unless @progressbar
+      @progressbar.call(msg, value)
     end
   end
 end

@@ -41,4 +41,40 @@ OptionParser.new do |o|
 
 end.parse!
 
-Wallzilla::Runner.run!(ARGV)
+require "wallzilla/progressbar"
+# Progress function.
+# Expects :started with file, :progress with current line and :finished or :interrupted when done.
+# <tt>message</tt> Current state (:started, :finished, :interupted or :progress).
+# <tt>value</tt> File or current line.
+def handle_progress(message, value = nil)
+  case message
+  when :started
+    @progress_bar =
+      Wallzilla::ProgressBar.new("Wallzilla", Wallzilla::Runner::KEYWORDS_SIZE, STDERR)
+  when :finished
+    @progress_bar.finish
+    @progress_bar = nil
+  when :interrupted
+    if @progress_bar
+      @progress_bar.halt
+      @progress_bar = nil
+    end
+  when :progress
+    @progress_bar.set(value)
+  end
+end
+
+begin
+  Wallzilla::Runner.run!(ARGV, progressbar: method(:handle_progress))
+
+  puts
+  puts "Search Flickr for best photos (#{Wallzilla::Runner::KEYWORDS_SIZE}) with text keywords: #{Wallzilla::Runner.keywords}"
+  puts "Result mozaic image saved to: #{Wallzilla::Runner.output_file}"
+  puts Wallzilla::Runner::COPYRIGHT
+  puts
+rescue => e
+  puts
+  puts e.message
+  puts
+  exit 1
+end

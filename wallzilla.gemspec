@@ -9,8 +9,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Yury Batenko"]
   spec.email         = ["jurbat@gmail.com"]
 
-  spec.summary       = %q{Flickr images wall generator based on provided tags}
-  spec.description   = %q{Flickr images wall generator based on provided tags}
+  spec.summary       = %q{Flickr best images wall generator based on provided tags}
+  spec.description   = %q{Flickr best images wall generator based on provided tags}
   spec.homepage      = "https://github.com/svenyurgensson/wallzilla"
   spec.license       = "MIT"
 
@@ -32,5 +32,4 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency "bundler", "~> 1.15"
   spec.add_development_dependency "rake", "~> 10.0"
-  spec.add_development_dependency "rspec", "~> 3.0"
 end
