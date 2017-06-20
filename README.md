@@ -48,7 +48,7 @@ And then execute:
 ## CLI Usage
 
 ```shell
-USAGE: ./exe/wz [options] kw1 kw2 kw3 ... kw10
+USAGE: wz [options] kw1 kw2 kw3 ... kw10
     -o, --output FILE                Write result to dir/to/filename.extname
     -k, --key key_string             Flickr API key string
     -w, --words [FILE]               Read words from dir/to/words file
@@ -60,15 +60,18 @@ USAGE: ./exe/wz [options] kw1 kw2 kw3 ... kw10
 
 `-k, --key key_string` 
 Flickr API key, you could get one [here](https://www.flickr.com/services/apps/create/apply)
+You also could set environment variable `export FLICKR_KEY=YOUR_KEY` somewhere in your profile scripts or in command line:
+
+`$ FLICKR_KEY=YOUR_KEY wz winter boy rocket racoon fear mars`
 
 `-b, --background color` 
 You could find color names [here](http://www.imagemagick.org/script/color.php)
 
 `-w, --words [FILE]`
-Just plain text file filled with words you like, line by line. Default words sources: "/usr/share/dict/words", "/usr/share/words".
+Just plain text file filled with words you like, line by line. Default words sources: `/usr/share/dict/words`, `/usr/share/words`.
 
 `-t, --tile [5x2 | 4x3]`
-You could choose how many images will be `columns X rows`, default is `4x3`
+You could choose how images will be placed in resulting mosaic `columns X rows`, default is `4x3`
 
 ## Library usage
 
