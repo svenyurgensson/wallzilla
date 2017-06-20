@@ -58,6 +58,9 @@ USAGE: wz [options] kw1 kw2 kw3 ... kw10
 ```
 ### Options:
 
+`-o, --output FILE` 
+Save resulting mosaic to file. Default is `output.jpg` in current directory.
+
 `-k, --key key_string` 
 Flickr API key, you could get one [here](https://www.flickr.com/services/apps/create/apply)
 You also could set environment variable `export FLICKR_KEY=YOUR_KEY` somewhere in your profile scripts or in command line:
@@ -65,7 +68,7 @@ You also could set environment variable `export FLICKR_KEY=YOUR_KEY` somewhere i
 `$ FLICKR_KEY=YOUR_KEY wz winter boy rocket racoon fear mars`
 
 `-b, --background color` 
-You could find color names [here](http://www.imagemagick.org/script/color.php)
+You could find color names [here](http://www.imagemagick.org/script/color.php), default is `black`
 
 `-w, --words [FILE]`
 Just plain text file filled with words you like, line by line. Default words sources: `/usr/share/dict/words`, `/usr/share/words`.
@@ -98,3 +101,12 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/Svenyu
 ## License
 
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
+
+## Progressbar
+
+Progressbar code borrowed from:
+
+    # Ruby/ProgressBar - a text progress bar library
+    #
+    # Copyright (C) 2001-2005 Satoru Takabayashi <satoru@namazu.org>
+
