@@ -1,0 +1,44 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+$: << File.expand_path("../../lib/", __FILE__)
+
+require "wallzilla"
+require "optparse"
+
+`#{Wallzilla::Montage.montage} --version`
+if $? != 0
+  puts "You should have imagemagick installed!"
+  exit 1
+end
+
+help_usage = "USAGE: #{$PROGRAM_NAME} [options] kw1 kw2 kw3 ... kw10"
+
+OptionParser.new do |o|
+  o.banner = help_usage
+
+  o.on_tail("-v", "--version", "Show version") { puts "Wallzilla version: #{Wallzilla::VERSION}"; exit 0 }
+
+  o.on("-o", "--output FILE", "Write result to dir/to/filename.extname") do |f|
+    ENV["result_file"] = f
+  end
+
+  o.on("-w", "--words [FILE]", "Read words from dir/to/words file") do |f|
+    ENV["words_file"] = f
+  end
+
+  o.on("-t", "--tile [5x2 | 4x3]", "Images positioning columns x rows (4x3)") do |f|
+    ENV["tiles"] = "4x3"
+  end
+
+  o.on("-b", "--background color", "Fill background color (black)") do |f|
+    ENV["background_color"] = f || "black"
+  end
+
+  o.on("-k", "--key key_string", "Flickr API key string") do |f|
+    ENV["FLICKR_KEY"] ||= f
+  end
+
+end.parse!
+
+Wallzilla::Runner.run!(ARGV)
